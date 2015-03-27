@@ -1,7 +1,7 @@
 package goduk
 
 /*
-#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY
+#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY -DDUK_OPT_NO_AUGMENT_ERRORS -DDUK_OPT_NO_TRACEBACKS
 
 #include <stdlib.h>
 #include "duktape.h"

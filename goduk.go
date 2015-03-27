@@ -1,16 +1,8 @@
 // duktape project duktape.go
 package goduk
 
-//TODO
-// revoir les fonction buffer
-
-import (
-	"io/ioutil"
-	"unsafe"
-)
-
 /*
-#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY
+#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY -DDUK_OPT_NO_AUGMENT_ERRORS -DDUK_OPT_NO_TRACEBACKS
 
 int _get_output_format() { return 1; }
 
@@ -31,6 +23,11 @@ void __duk_log(duk_context *ctx, duk_int_t level, const char *text) {
 }
 */
 import "C"
+import "unsafe"
+import "io/ioutil"
+
+//TODO
+// revoir les fonction buffer
 
 type Context struct {
 	ctx *C.struct_duk_context

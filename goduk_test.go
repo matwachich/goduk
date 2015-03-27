@@ -1,34 +1,43 @@
 package goduk
 
-import "testing"
+import (
+	"time"
+	"testing"
+	"fmt"
+)
 
-func TestSimple(t *testing.T) {
+func duk_myError(ctx *Context) int {
+	ctx.Error(0, "filename", 10, ctx.SafeToString(0))
+	return 0
+}
+
+func duk_Sleep(ctx *Context) int {
+	time.Sleep(time.Duration(ctx.ToInt(0)) * time.Millisecond)
+	return 0
+}
+
+func execute(script string) {
+	fmt.Println("Start:", script)
+
 	ctx := CreateHeapDefault()
 	defer ctx.Destroy()
 
-	ret := ctx.PevalString(
-`
-function fib(n) {
-    if (n == 0) { return 0; }
-    if (n == 1) { return 1; }
-    return fib(n-1) + fib(n-2);
-}
+	ctx.PushGlobalObject()
+	ctx.PutGoFunc(-1, GoFunc{"Sleep", duk_Sleep, 1})
+	ctx.PutGoFunc(-1, GoFunc{"myError", duk_myError, 1})
+	ctx.Pop()
 
-function test() {
-    var res = [];
-    for (i = 0; i < 20; i++) {
-        res.push(fib(i));
-    }
-    print(res.join(' '));
-	return "السلام";
-}
-
-test();
-` , "test.js")
-
-	if ret == 0 {
-		println("OK - return =", ctx.GetString(-1))
+	if ctx.PcompileString(0, script, "filename") != 0 {
+		fmt.Println("Pcompile error:", ctx.SafeToString(-1))
 	} else {
-		println("Failed - err =", ctx.GetString(-1))
+		if ctx.Pcall(0) != 0 {
+			fmt.Println("Pcall error:", ctx.SafeToString(-1))
+		} else {
+			fmt.Println("End")
+		}
 	}
+}
+
+func TestErrors(t *testing.T) {
+	execute(`print("Will call error..."); Sleep(1000); throw "My error texte"; myError("myError() message")`)
 }

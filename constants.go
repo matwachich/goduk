@@ -1,7 +1,7 @@
 package goduk
 
 /*
-#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY
+#cgo CFLAGS: -std=c99 -O2 -Os -fomit-frame-pointer -fstrict-aliasing -DDUK_OPT_NO_ES6_OBJECT_SETPROTOTYPEOF -DDUK_OPT_NO_ES6_OBJECT_PROTO_PROPERTY -DDUK_OPT_NO_ES6_PROXY -DDUK_OPT_NO_AUGMENT_ERRORS -DDUK_OPT_NO_TRACEBACKS
 
 #include "duktape.h"
 */
@@ -11,8 +11,8 @@ import "C"
 /* Constants */
 /* --------- */
 
-const VERSION = 10101
-const GIT_DESCRIBE = "v1.1.1"
+const VERSION = 10102
+const GIT_DESCRIBE = "v1.1.2"
 const INVALID_INDEX = int(C.DUK_IDX_MIN)
 const VARARGS = -1
 const API_ENTRY_STACK = 64
